@@ -7,6 +7,8 @@ pragma solidity >=0.8.0;
 /// @author Joshua Levine <joshua@makerdao.com>
 /// @author Nick Johnson <arachnid@notdot.net>
 
+import { Address } from "@openzeppelin/contracts/utils/Address.sol";
+
 contract Multicall2 {
     struct Call {
         address target;
@@ -16,6 +18,8 @@ contract Multicall2 {
         bool success;
         bytes returnData;
     }
+
+    bytes private NON_CONTRACT_CALL = bytes("NON_CONTRACT_CALL");
 
     function aggregate(Call[] calldata _calls) public returns (uint256 blockNumber, bytes[] memory returnData) {
         blockNumber = block.number;
@@ -55,13 +59,19 @@ contract Multicall2 {
     }
     function tryAggregate(bool requireSuccess, Call[] calldata _calls) public returns (Result[] memory returnData) {
         returnData = new Result[](_calls.length);
+        bool success;
+        bytes memory ret;
         for(uint256 i = 0; i < _calls.length; i++) {
-            (bool success, bytes memory ret) = _calls[i].target.call(_calls[i].callData);
+            if (Address.isContract(_calls[i].target)) {
+                (success, ret) = _calls[i].target.call(_calls[i].callData);
 
-            if (requireSuccess) {
-                require(success, "Multicall2 aggregate: call failed");
+                if (requireSuccess) {
+                    require(success, "Multicall2 aggregate: call failed");
+                }
+            } else {
+                success = false;
+                ret = NON_CONTRACT_CALL;
             }
-
             returnData[i] = Result(success, ret);
         }
     }
