@@ -22,6 +22,7 @@ describe("Multicall2", function () {
 
     let multicall: any;
     let token: any;
+    let token2: any;
 
     before("config", async () => {
         accounts = await ethers.getSigners();
@@ -41,17 +42,36 @@ describe("Multicall2", function () {
 
         token = await ERC20Mock.deploy("Test", "TEST")
         await token.deployed()
+
+        token2 = await ERC20Mock.deploy("Test 2", "TEST2")
+        await token2.deployed()
     });
 
     it('should success call contract address with exist method', async function () {
         let multicallInst = new ethers.Contract(multicall.address, MULTICALL2_ABI, OWNER_SIGNER);
+
         let result = await multicallInst.tryAggregate(false, [
             {
                 target: token.address,
                 callData: "0x06fdde03"
+            },
+            {
+                target: token2.address,
+                callData: "0x06fdde03"
             }
         ])
-        assert.equal(result[0].success, true, "Not success")
+
+        const abiCoder = new ethers.utils.AbiCoder()
+
+        result.map((item: any, index: number) => {
+            assert.equal(item.success, true, "Not success")
+            if (index === 0) {
+                assert.equal(abiCoder.decode([ "string" ], item.returnData).toString(), "Test", "Name")
+            }
+            if (index === 1) {
+                assert.equal(abiCoder.decode([ "string" ], item.returnData).toString(), "Test 2", "Name")
+            }
+        })
     });
 
     it('should fail call contract address with no exist method', async function () {
