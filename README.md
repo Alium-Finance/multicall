@@ -9,39 +9,38 @@ and returning the block number the values are from (giving them important
 context so that results from old blocks can be ignored if they're from an
 out-of-date node).
 
-This smart contract is intended to be used with
-[Multicall.js](https://github.com/makerdao/multicall.js) in front-end dapps.
+Updates:    
+- Using solc0.8.x     
+- Processing non contract calls for create2 calculations as example
 
-### Multicall Contract Addresses
-| Chain   | Address |
-| ------- | ------- |
-| Mainnet | [0xeefba1e63905ef1d7acba5a8513c70307c1ce441](https://etherscan.io/address/0xeefba1e63905ef1d7acba5a8513c70307c1ce441#contracts) |
-| Kovan   | [0x2cc8688c5f75e365aaeeb4ea8d6a480405a48d2a](https://kovan.etherscan.io/address/0x2cc8688c5f75e365aaeeb4ea8d6a480405a48d2a#contracts) |
-| Rinkeby | [0x42ad527de7d4e9d9d011ac45b31d8551f8fe9821](https://rinkeby.etherscan.io/address/0x42ad527de7d4e9d9d011ac45b31d8551f8fe9821#contracts) |
-| Görli   | [0x77dca2c955b15e9de4dbbcf1246b4b85b651e50e](https://goerli.etherscan.io/address/0x77dca2c955b15e9de4dbbcf1246b4b85b651e50e#contracts) |
-| Ropsten | [0x53c43764255c17bd724f74c4ef150724ac50a3ed](https://ropsten.etherscan.io/address/0x53c43764255c17bd724f74c4ef150724ac50a3ed#code) |
-| xDai    | [0xb5b692a88bdfc81ca69dcb1d924f59f0413a602a](https://blockscout.com/poa/dai/address/0xb5b692a88bdfc81ca69dcb1d924f59f0413a602a) |
-| Polygon | [0x11ce4B23bD875D7F5C6a31084f55fDe1e9A87507](https://explorer-mainnet.maticvigil.com/address/0x11ce4B23bD875D7F5C6a31084f55fDe1e9A87507/contracts)
-| Mumbai  | [0x08411ADd0b5AA8ee47563b146743C13b3556c9Cc](https://explorer-mumbai.maticvigil.com/address/0x08411ADd0b5AA8ee47563b146743C13b3556c9Cc/transactions)
+# Multcall V2:
 
-### Multicall2 Contract Addresses
-Multicall2 is the same as Multicall, but provides addition functions that allow calls within the batch to fail. Useful for situations where a call may fail depending on the state of the contract.
+## Mainnet deployed:
 
-| Chain   | Address |
-| ------- | ------- |
-| Mainnet | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#contracts) |
-| Kovan   | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://kovan.etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#contracts) |
-| Rinkeby | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://rinkeby.etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#contracts) |
-| Görli   | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://goerli.etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#contracts) |
-| Ropsten | [0x5ba1e12693dc8f9c48aad8770482f4739beed696](https://ropsten.etherscan.io/address/0x5ba1e12693dc8f9c48aad8770482f4739beed696#code) |
+| name	 | address	                                                      | network |
+|-------|---------------------------------------------------------------| ------- |
+| Multicall2 | 0x737EAd42CE0859C1CB056d162D1DE6dEBB41b4A6                    |	FTM |
+| Multicall2 | 	0x603bC4530ad41153859Bd4c0AE1FBa4D10660299                   |	BSC |
+| Multicall2 | 	0x983b4625630ae1aaa7648f4cad68b9c0a52b8ae8                   |	POLYGON |
+| Multicall2 | 	0x1f8559Ea0c917a79f8Ab475E78cF7F390C94F22d |	ETHEREUM  |         
+| Multicall2 | 	0xF74B88DED057f7013A972F4caC2d31Cb70e0F7a2 |	METIS (ANDROMEDA)  |
+| Multicall2 | 	0x33d1cE5C23eaBCf9fC24b06dc29693Cba1ef02fE |	HECO  |            
+| Multicall2 | 	0x1C259099C089E2C31d7FDF0A57f525dcAD82f670 |	MOONBEAM   |       
+| Multicall2 | 	0x763FA754b3048F1B027eD7f5297FF9882c3e21df |	NEAR (AURORA)  |    
+| Multicall2 | 	0xe762b3e74f04C9FbF1DAB800Fbd44e799089F024 |	MOONRIVER   |       
+| Multicall2 | 	0x4D3D711853a4A25AE1D17347a97253A66Ed63D18 |	OKC      |          
 
-### Third-Party Deployments
+## Testnet deployed:
 
-The following addresses have been submitted by external contributors and have not been vetted by Multicall maintainers.
-
-| Chain   | Address |
-| ------- | ------- |
-| RSK Mainnet   | [0x6c62bf5440de2cb157205b15c424bceb5c3368f5](https://explorer.rsk.co/address/0x6c62bf5440de2cb157205b15c424bceb5c3368f5) |
-| RSK Testnet   | [0x9e469e1fc7fb4c5d17897b68eaf1afc9df39f103](https://explorer.testnet.rsk.co/address/0x9e469e1fc7fb4c5d17897b68eaf1afc9df39f103) |
-| BSC Mainnet   | [0x41263cba59eb80dc200f3e2544eda4ed6a90e76c](https://bscscan.com/address/0x41263cba59eb80dc200f3e2544eda4ed6a90e76c) |
-| BSC Testnet   | [0xae11C5B5f29A6a25e955F0CB8ddCc416f522AF5C](https://testnet.bscscan.com/address/0xae11c5b5f29a6a25e955f0cb8ddcc416f522af5c) |
+| name	 | address	                                   | network |
+|-------|--------------------------------------------| ------- |
+| Multicall2 | 0x9ED79c3A9221303a7B2Ee4C5617e1ea4688a12dA |	FTM |
+| Multicall2 | 0x1f12Df344B63F1eb20ED661Ac160208266179C49 |	BSC |
+| Multicall2 | 0x9ca69E6168e0a87b75053CA0847838A9e73AFCBD |	POLYGON (MUMBAI) |
+| Multicall2 | 0xa951e5085a6F9508cC58065EC59845A5DEaE4cB3 |	ETHEREUM (RINKEBY) |
+| Multicall2 | 0x2613047BfEEa744eEc08fD72864FB2Feb654Eb05 |	METIS (ANDROMEDA) |
+| Multicall2 | 0x626413137d565852B498b776B49739D00B2345A8 |	HECO |
+| Multicall2 | 0x2613047BfEEa744eEc08fD72864FB2Feb654Eb05 |	MOONBEAM (Moonbase Alpha) |
+| Multicall2 | 0x8613ecdbd50EFD649EE1D7837E78Fb71ee405240 |	NEAR (AURORA) |
+| Multicall2 | 0x2613047BfEEa744eEc08fD72864FB2Feb654Eb05 |	MOONRIVER (Moonbase Alpha) |
+| Multicall2 | 0x849A4780B4A292B6Ce1e0fA07eAb533D8d78a009 |	OKC |              
